@@ -9,6 +9,10 @@
         hide-details="auto"></v-text-field>
     </v-row>
 
+    <v-row class="py-6 justify-center" v-if="loading && !movie">
+      <v-progress-circular indeterminate :size="40"></v-progress-circular>
+    </v-row>
+
     <v-row v-if="movie && !movie.Error" class="justify-center">
       <movie-card :title="movie.Title" :subtitle="movie.Director" :image="movie.Poster">
         <router-link :to="{ name: 'details', params: { url: slugify(movie.Title), movie } }">
@@ -44,15 +48,22 @@ export default {
       value => !!value || 'Required.',
       value => (value && value.length >= 3) || 'Min 3 characters',
     ],
-    movie: ''
+    movie: '',
+    loading: false
   }),
   created() {
     this.debouncedInputHandler = debounce(this.searchMovie, 1000);
   },
   methods: {
     searchMovie() {
+      this.loading = true
+
       axios.get(`${this.apiUrl}/?t=${this.title}&apikey=${this.apiKey}`)
         .then(({ data }) => this.movie = data)
+        .catch((err) => console.warn(err))
+        .finally(()=> {
+          this.loading = false
+        })
     }
   },
   beforeDestroy() {

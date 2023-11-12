@@ -1,6 +1,8 @@
 # movieaz
 
-### Made with Vue 2.6.14, VueX, Vue Router and Vuetify.
+#### Made with Vue 2.6.14, VueX, Vue Router and Vuetify.
+
+### Live application on [this link](https://opeaz-movieaz.netlify.app/)
 
 Important files to watch:
 
