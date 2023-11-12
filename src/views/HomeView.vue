@@ -1,6 +1,9 @@
 <template>
   <v-container>
-    <h2 class="text-h3 text-center pa-12">MovieSearch</h2>
+    <h2 class="text-h3 text-center pa-12">
+      Movie Search
+      <v-icon>mdi-magnify</v-icon>
+    </h2>
     <v-row class="pa-6">
       <v-text-field v-model="title" @input="debouncedInputHandler" label="Search" :rules="rules"
         hide-details="auto"></v-text-field>

@@ -5,13 +5,20 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-  },
-  getters: {
+    favorites: []
   },
   mutations: {
+    FAVORITE_MOVIE(state, payload) {
+      if (state.favorites.some(movie => movie.Title === payload.Title)) {
+        return
+      }
+
+      state.favorites.push({ ...payload, rate: 0 })
+    }
   },
   actions: {
-  },
-  modules: {
+    favoriteMovie(context, payload) {
+      context.commit('FAVORITE_MOVIE', payload)
+    }
   }
 })

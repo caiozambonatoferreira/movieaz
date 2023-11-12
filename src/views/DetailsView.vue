@@ -3,6 +3,15 @@
         <v-row class="text-center">
             <v-col cols="12">
                 <v-img :src="movie.Poster" class="my-3" contain height="200" />
+
+                <v-btn 
+                    size="large" 
+                    color="secondary"
+                    @click="favoriteMovie(movie)"
+                >
+                    <v-icon class="px-3">mdi-heart</v-icon>
+                    Save into favorites
+                </v-btn>
             </v-col>
 
             <v-col class="mb-4">
@@ -13,16 +22,15 @@
                 <p class="mb-3">Runtime: {{ movie.Runtime }}</p>
 
                 <p class="mb-3">Directed by: {{ movie.Director }}</p>
-                
+
                 <p class="mb-3">Writen by: {{ movie.Writer }}</p>
 
                 <p class="mb-3">
-                    Actors: 
+                    Actors:
                     <span v-for="(actor, index) in movie.Actors.split(',')" :key="index">
-                        {{ actor }}{{ index < movie.Actors.split(',').length - 1 ? ',' : '' }}
-                    </span>
+                        {{ actor }}{{ index < movie.Actors.split(',').length - 1 ? ',' : '' }} </span>
                 </p>
-                
+
 
                 <p class="subheading font-weight-regular">
                     {{ movie.Plot }}
@@ -41,8 +49,7 @@
                 </h2>
 
                 <ul justify="center">
-                    <v-list v-for="(rating, index ) in movie.Ratings" :key="index" class="subheading mx-3"
-                        target="_blank">
+                    <v-list v-for="(rating, index ) in movie.Ratings" :key="index" class="subheading mx-3" target="_blank">
                         {{ rating.Value }} - {{ rating.Source }}
                     </v-list>
                 </ul>
@@ -52,6 +59,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
     name: 'DetailsView',
 
@@ -63,6 +72,10 @@ export default {
 
     created() {
         this.movie = this.$route.params.movie
+    },
+
+    methods: {
+        ...mapActions(['favoriteMovie'])
     }
 }
 </script>

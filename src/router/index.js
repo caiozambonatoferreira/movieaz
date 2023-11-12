@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import DetailsView from '../views/DetailsView.vue'
+import FavoritesView from '../views/FavoritesView.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/movie/:url',
     name: 'details',
     component: DetailsView
+  },
+  {
+    path: '/favorites',
+    name: 'favorites',
+    component: FavoritesView
   }
 ]
 
