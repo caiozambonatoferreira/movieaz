@@ -14,13 +14,7 @@
                 </v-card-subtitle>
 
                 <v-card-actions>
-                  <v-btn
-                    class="ms-2"
-                    variant="outlined"
-                    size="small"
-                  >
-                    See details
-                  </v-btn>
+                    <slot />
                 </v-card-actions>
               </div>
 
