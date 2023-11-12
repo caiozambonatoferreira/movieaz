@@ -1,5 +1,16 @@
 # movieaz
 
+Important files to take a look:
+
+- .env (where API Key and API Url are stored)
+- src
+  -- components/MovieCard
+  -- router/index.js
+  -- store/index.js
+  -- views/*
+  -- utilities/index.js
+  -- App.vue
+
 ## Project setup
 ```
 yarn install
