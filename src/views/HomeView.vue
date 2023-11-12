@@ -1,29 +1,61 @@
 <template>
   <v-container>
-    <h2 class="text-h3 text-center pa-12">MovieSearch {{ apiKey }}</h2>
-    <v-row>
+    <h2 class="text-h3 text-center pa-12">MovieSearch</h2>
+    <v-row class="pa-6">
       <v-text-field
         v-model="title"
+        @input="debouncedInputHandler"
         label="Search"
         :rules="rules"
         hide-details="auto"
       ></v-text-field>
     </v-row>
+
+    <v-row v-if="movie && !movie.Error" class="justify-center">
+      <movie-card
+        :title="movie.Title"
+        :subtitle="movie.Director"
+        :image="movie.Poster"
+      />
+    </v-row>
+
+    <div v-if="movie && movie.Error" class="text-center">
+      {{ movie.Error }}
+    </div>
   </v-container>
 </template>
 
 <script>
-  const apiKey = process.env.VUE_APP_API_KEY
+  import { debounce } from '@/utilities/'
+  import axios from 'axios'
+  import MovieCard from '@/components/MovieCard.vue'
 
   export default {
     name: 'HomeView',
+    components: {
+      MovieCard
+    },
     data: () => ({
       title: '',
-      apiKey,
+      apiKey: process.env.VUE_APP_API_KEY,
+      apiUrl: process.env.VUE_APP_API_URL,
       rules: [
         value => !!value || 'Required.',
         value => (value && value.length >= 3) || 'Min 3 characters',
       ],
+      movie: ''
     }),
+    created() {
+      this.debouncedInputHandler = debounce(this.searchMovie, 1000);
+    },
+    methods: {
+      searchMovie() {
+        axios.get(`${this.apiUrl}/?t=${this.title}&apikey=${this.apiKey}`)
+             .then(({data}) => this.movie = data)
+      }
+    },
+    beforeDestroy() {
+      clearTimeout(this.debouncedInputHandler.timeout);
+    }
   }
 </script>
