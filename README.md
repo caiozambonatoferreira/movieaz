@@ -1,5 +1,18 @@
 # movieaz
 
+### Made with Vue 2.6.14, VueX, Vue Router and Vuetify.
+
+Important files to watch:
+
+- .env (where API Key and API Url are stored)
+- src/
+  - components/MovieCard
+  - router/index.js
+  - store/index.js
+  - views/*
+  - utilities/index.js
+  - App.vue
+
 ## Project setup
 ```
 yarn install
@@ -14,16 +27,3 @@ yarn serve
 ```
 yarn build
 ```
-
-### Run your unit tests
-```
-yarn test:unit
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
